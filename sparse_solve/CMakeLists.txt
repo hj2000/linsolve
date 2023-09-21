@@ -1,6 +1,7 @@
 add_library(krylov STATIC
     "${CMAKE_CURRENT_LIST_DIR}/src/cg.cpp"
     "${CMAKE_CURRENT_LIST_DIR}/src/gmres.cpp"
+    "${CMAKE_CURRENT_LIST_DIR}/src/util.cpp"
 )
 find_package(GSL REQUIRED)
 target_include_directories(krylov PUBLIC "${CMAKE_CURRENT_LIST_DIR}/include")
