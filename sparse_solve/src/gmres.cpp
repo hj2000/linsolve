@@ -1,5 +1,5 @@
 #include "krylov.h"
-int gmres( gsl_spmatrix* A, gsl_vector* b, gsl_vector* x, double tol, int maxit )
+int gmres( const gsl_spmatrix* A, const gsl_vector* b, gsl_vector* x, double tol, int maxit )
 {
     int         n = b->size;
     gsl_vector* r = gsl_vector_alloc( n );
