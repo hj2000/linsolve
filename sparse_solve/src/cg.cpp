@@ -34,7 +34,7 @@ int cg( const gsl_spmatrix* A, const gsl_vector* b, gsl_vector* x, double tol )
         gsl_blas_daxpy( alpha, p, x );
         gsl_blas_daxpy( -alpha, Ap, r );
         norm_r = gsl_blas_dnrm2( r );
-        printf( "%d,norm=%e\n", iter, norm_r );
+        // printf( "%d,norm=%e\n", iter, norm_r );
     }
     gsl_vector_free( r );
     gsl_vector_free( p );
@@ -89,8 +89,9 @@ int pcg( gsl_precond_type type, const gsl_spmatrix* A, const gsl_vector* b, gsl_
         gsl_blas_ddot( Ap, p, &etam );
         eta /= etam;
         gsl_blas_daxpy( eta, p, x );
-        gsl_blas_daxpy( eta, Ap, r );
-        printf( "%d,norm=%e\n", iter, norm_r );
+        gsl_blas_daxpy( -eta, Ap, r );
+        norm_r = gsl_blas_dnrm2( r );
+        // printf( "%d,norm=%e\n", iter, norm_r );
     }
 
     gsl_vector_free( r );

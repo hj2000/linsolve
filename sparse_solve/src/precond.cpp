@@ -23,11 +23,11 @@ void jacobi_iterate( const gsl_spmatrix* LDU, const gsl_vector* D, const gsl_vec
 {
     for ( int k = 0; k < itn; k++ )
     {
-        // gsl_blas_dcopy( x, x_last );
+        gsl_blas_dcopy( x, x_last );
         gsl_blas_dcopy( b, x );
-        // gsl_spblas_dgemv( CblasNoTrans, -1.0, LDU, x_last, 1.0, x );
-        // gsl_vector_div( x, D );
-        // gsl_blas_daxpy( 1.0, x_last, x );
+        gsl_spblas_dgemv( CblasNoTrans, -1.0, LDU, x_last, 1.0, x );
+        gsl_vector_div( x, D );
+        gsl_blas_daxpy( 1.0, x_last, x );
     }
 }
 void gauss_seidel_iterate( const gsl_spmatrix* LDU, const gsl_vector* D, const gsl_vector* b,
@@ -57,10 +57,12 @@ void gsl_precondition( const gsl_precond* pred, const gsl_vector* v, gsl_vector*
     switch ( pred->type )
     {
     case JACOBI:
-        jacobi_iterate( pred->LDU, pred->D, v, pred->x_last, z, 1 );
+        gsl_vector_set_zero( z );
+        jacobi_iterate( pred->LDU, pred->D, v, pred->x_last, z, 2 );
         break;
     case GAUSS_SEIDEL:
-        gauss_seidel_iterate( pred->LDU, pred->D, v, z, 1 );
+        gsl_vector_set_zero( z );
+        gauss_seidel_iterate( pred->LDU, pred->D, v, z, 2 );
         break;
     default:
         break;

@@ -27,3 +27,5 @@ int cg( const gsl_spmatrix* A, const gsl_vector* b, gsl_vector* x, double tol );
 int pcg( gsl_precond_type type, const gsl_spmatrix* A, const gsl_vector* b, gsl_vector* x,
          double tol );
 int gmres( const gsl_spmatrix* A, const gsl_vector* b, gsl_vector* x, double tol, int maxit );
+int pgmres( gsl_precond_type type, const gsl_spmatrix* A, const gsl_vector* b, gsl_vector* x,
+            double tol, int maxit );
